@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Episode;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Movie_Genre;
@@ -275,6 +276,9 @@ class movieController extends Controller
             unlink(public_path() . '/uploads/movie/' . $movie->image);
         }
         Movie_Genre::whereIn('movie_id', [$movie->id])->delete();
+
+        Episode::whereIn('movie_id', [$movie->id])->delete();
+        
         $movie->delete();
         return redirect()->back();
     }

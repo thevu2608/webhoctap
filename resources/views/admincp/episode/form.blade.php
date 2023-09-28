@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <a href="{{ route('movie.index') }}" class="btn btn-primary">Liệt kê Danh Sách Tập phim</a>
+                    <a href="{{ route('episode.index') }}" class="btn btn-primary">Liệt kê Danh Sách Tập phim</a>
                     <div class="card-header">Quản Lý Tập Phim</div>
 
                     <div class="card-body">
@@ -26,9 +26,14 @@
                         <div
                             class="form-group>
                             {!! Form::label('Phim', 'Chọn Phim', []) !!}
-                            {!! Form::select('movie_id', ['0'=>'Chọn Phim', 'Danh sách phim'=> $list_movie], isset($episode) ? $episode->movie_id : '', [
-                                'class' => 'form-control select-movie'
-                            ]) !!}
+                            {!! Form::select(
+                                'movie_id',
+                                ['0' => 'Chọn Phim', 'Danh sách phim' => $list_movie],
+                                isset($episode) ? $episode->movie_id : '',
+                                [
+                                    'class' => 'form-control select-movie'
+                                ]
+                            ) !!}
                         </div>
                         <br>
                         <div
@@ -40,23 +45,31 @@
                             ]) !!}
                         </div>
                         <br>
-                        <div class="form-group>
+                        @if(isset($episode))
+                        <div
+                            class="form-group>
                             {!! Form::label('episode', 'Tập Phim', []) !!}
-                            <select name= "episode" class="form-control" id="episode">
-
-                            </select>
+                            {!! Form::text('episode', isset($episode) ? $episode->episode : '', [
+                                'class' => 'form-control',
+                                'placeholder' => '...', isset($episode) ? 'readonly': ''
+                            ]) !!}
                         </div>
                         <br>
-                             @if (!isset($movie))
+                        @else
+                        <div class="form-group">
+                            {!! Form::label('episode', 'Tập Phim', []) !!}
+                            <select name="episode" class="form-control" id="episode"></select>
+                        </div>
+                        @endif
+                        @if (!isset($episode))
                             {!! Form::submit('Thêm Tập Phim', ['class' => 'btn btn-success']) !!}
                         @else
                             {!! Form::submit('Cập nhật Tập Phim', ['class' => 'btn btn-success']) !!}
-                            @endif
-                            {!! Form::close() !!}
-                        </div>
+                        @endif
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
         </div>
-
-    @endsection
+    </div>
+@endsection

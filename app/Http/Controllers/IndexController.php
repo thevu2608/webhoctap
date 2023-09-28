@@ -25,7 +25,7 @@ class IndexController extends Controller
             $country = Country::orderBy('id', 'DESC')->get();
 
 
-            $movie = Movie::where('title', 'LIKE', '%'.$search.'%')->orderBy('date_update', 'DESC')->paginate(40);
+            $movie = Movie::where('title', 'LIKE', '%' . $search . '%')->orderBy('date_update', 'DESC')->paginate(40);
 
             return view('pages/timkiem', compact('genre', 'country', 'category', 'search', 'movie', 'phimhot_slidebar', 'phimhot_trailer'));
         } else {
@@ -111,13 +111,33 @@ class IndexController extends Controller
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
         $movie = Movie::with('genre', 'category', 'country', 'movie_genre')->where('slug', $slug)->where('status', 1)->first();
+        $episode_first = Episode::with('movie')->where('movie_id', $movie->id)->first();
         $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)
             ->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
-        return view('pages/movie', compact('genre', 'country', 'category', 'movie', 'movie_related', 'phimhot_slidebar', 'phimhot_trailer'));
+        $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
+        return view('pages/movie', compact('genre', 'country', 'category', 'movie', 'movie_related', 'phimhot_slidebar', 'phimhot_trailer', 'episode', 'episode_first'));
     }
-    public function watch()
+    public function watch($slug, $tap)
     {
-        return view('pages/watch');
+
+
+        $category = Category::orderBy('id', 'DESC')->where('status', 1)->get();
+        $phimhot_slidebar = Movie::where('phim_hot', 1)->where('status', 1)->orderBy('date_update', 'DESC')->take(15)->get();
+        $phimhot_trailer = Movie::where('resolution', 4)->where('status', 1)->orderBy('date_update', 'DESC')->take(10)->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+
+        $movie = Movie::with('genre', 'category', 'country', 'movie_genre', 'episode')->where('slug', $slug)->where('status', 1)->first();
+        if (isset($tap)) {
+            $tapphim = $tap;
+            $tapphim = substr($tap, 4, 1);
+            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
+        } else {
+            $tapphim = 1;
+            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
+
+        }
+        return view('pages/watch', compact('category', 'phimhot_slidebar', 'phimhot_trailer', 'genre', 'movie', 'country', 'episode', 'tapphim'));
     }
     public function episode()
     {

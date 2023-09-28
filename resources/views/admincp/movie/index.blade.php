@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <a href="{{ route('movie.create') }}" class="btn btn-primary">Thêm phim</a>
+        <div class="row justify-content">
+            <a href="{{ route('movie.create') }}" class="btn btn-primary float-left">Thêm phim</a>
             <div class="col-md-12">
                 <table class="table" id="table-movie">
                     <thead>

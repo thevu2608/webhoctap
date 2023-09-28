@@ -42,7 +42,7 @@
                                 @if ($movie->resolution != 4)
                                     <div class="bwa-content">
                                         <div class="loader"></div>
-                                        <a href="{{ route('watch') }}" class="bwac-btn">
+                                        <a href="{{ url('xem-phim/'.$movie->slug.'/tap-'.$episode_first->episode) }}" class="bwac-btn">
                                             <i class="fa fa-play"></i>
                                         </a>
                                     </div>
@@ -88,16 +88,16 @@
                                     </li>
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->time_movie }}
                                     </li>
-                                    <li class="list-info-group-item"><span>Tập phim</span> : {{ $movie->sotap }}/{{ $movie->sotap }} - Hoàn thành
+                                    <li class="list-info-group-item"><span>Tập phim</span> :
+                                        {{ $movie->sotap }}/{{ $movie->sotap }} - Hoàn thành
                                     </li>
-                                    @if ($movie->season != 0)
-                                        <li class="list-info-group-item"><span>Season</span> : {{ $movie->season }}
-                                        </li>
-                                    @endif
                                     <li class="list-info-group-item"><span>Thể loại</span> :
                                         @foreach ($movie->movie_genre as $key => $gen)
-                                            <a href="{{ route('genre', $gen->slug) }}" rel="category tag">{{ $gen->title }}</a>
-                                            @if ($key < count($movie->movie_genre) - 1), @endif
+                                            <a href="{{ route('genre', $gen->slug) }}"
+                                                rel="category tag">{{ $gen->title }}</a>
+                                            @if ($key < count($movie->movie_genre) - 1)
+                                                ,
+                                            @endif
                                         @endforeach
                                     </li>
 
@@ -107,6 +107,12 @@
                                     <li class="list-info-group-item"><span>Quốc gia</span> : <a
                                             href="{{ route('country', $movie->country->slug) }}"
                                             rel="tag">{{ $movie->country->title }}</a></li>
+                                    <li class="list-info-group-item"><span>Tập phim mới nhất</span> :
+                                        @foreach ($episode as $key => $ep)
+                                            <a href="{{ url('xem-phim/'.$ep->movie->slug.'/tap-'.$ep->episode) }}" rel="tag">Tập
+                                                {{ $ep->episode }}</a>
+                                        @endforeach
+                                    </li>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>

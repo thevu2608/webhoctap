@@ -16,7 +16,8 @@ class episodeController extends Controller
      */
     public function index()
     {
-        //
+        $list_episode = Episode::with('movie')->orderBy('movie_id', 'DESC')->get();
+        return view('admincp.episode.index', compact('list_episode'));
     }
 
     /**
@@ -46,7 +47,7 @@ class episodeController extends Controller
         $episode->create_time = Carbon::now('Asia/Ho_Chi_Minh');
         $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
         $episode->save();
-        return redirect()->back();
+        return redirect()->route('episode.index');
     }
 
     /**
@@ -68,7 +69,9 @@ class episodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $episode = Episode::find($id);
+        $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id', 'sotap');
+        return view('admincp.episode.form', compact('episode', 'list_movie'));
     }
 
     /**
@@ -80,7 +83,15 @@ class episodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $episode = Episode::find($id);
+        $episode->movie_id = $data['movie_id'];
+        $episode->linkphim = $data['link'];
+        $episode->episode = $data['episode'];
+        $episode->create_time = Carbon::now('Asia/Ho_Chi_Minh');
+        $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
+        $episode->save();
+        return redirect()->route('episode.index');
     }
 
     /**
@@ -91,7 +102,8 @@ class episodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $episode = Episode::find($id)->delete();
+        return redirect()->back();
     }
     public function select_movie(){
         $id = $_GET['id'];
