@@ -21,7 +21,7 @@
                 <a class="nav-link" href="{{ route('movie.create') }}">Phim</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('episode.create') }}">Tập phim</a>
+                <a class="nav-link" href="{{ route('episode.create') }}">Thêm link phim</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

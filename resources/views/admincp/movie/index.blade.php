@@ -19,6 +19,7 @@
                             <th scope="col">Đường dẫn</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Danh mục</th>
+                            <th scope="col">Thuộc phim</th>
                             <th scope="col">Thể loại</th>
                             <th scope="col">Quốc gia</th>
                             <th scope="col">Số tập</th>
@@ -75,11 +76,13 @@
                                     @endif
                                 </td>
                                 <td>{{ $cate->category->title ?? 'N/A' }}</td>
+                                <td>{{ $cate->thuocphim}}</td>
                                 <td>
                                     @foreach ($cate->movie_genre as $gen)
                                         <span class="badge badge-dark">{{ $gen->title ?? 'N/A' }}</span>
                                     @endforeach
                                 </td>
+
                                 <td>{{ $cate->country->title ?? 'N/A' }}</td>
                                 <td>{{ $cate->sotap }}</td>
                                 <td>{{ $cate->date_created ?? 'N/A' }}</td>

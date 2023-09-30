@@ -144,6 +144,14 @@
                         <br>
                         <div
                             class="form-group>
+                            {!! Form::label('thuocphim', 'Thuộc thể loại phim', []) !!}
+                            {!! Form::select('thuocphim', ['phim le' => 'Phim Lẻ', 'phim bo' => 'Phim Bộ'], isset($movie) ? $movie->thuocphim : '', [
+                                'class' => 'form-control'
+                            ]) !!}
+                        </div>
+                        <br>
+                        <div
+                            class="form-group>
                             {!! Form::label('Country', 'Quốc gia', []) !!}
                             {!! Form::select('country_id', $country, isset($movie) ? $movie->country_id : '', ['class' => 'form-control']) !!}
 

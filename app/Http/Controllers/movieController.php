@@ -158,6 +158,7 @@ class movieController extends Controller
         $movie->status = $data['status'];
         $movie->phim_hot = $data['phim_hot'];
         $movie->category_id = $data['category_id'];
+        $movie->thuocphim = $data['thuocphim'];
         $movie->country_id = $data['country_id'];
         $movie->date_created = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
@@ -236,6 +237,7 @@ class movieController extends Controller
         $movie->status = $data['status'];
         $movie->phim_hot = $data['phim_hot'];
         $movie->category_id = $data['category_id'];
+        $movie->thuocphim = $data['thuocphim'];
         $movie->country_id = $data['country_id'];
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
         foreach ($data['genre'] as $key => $gen){
@@ -278,7 +280,7 @@ class movieController extends Controller
         Movie_Genre::whereIn('movie_id', [$movie->id])->delete();
 
         Episode::whereIn('movie_id', [$movie->id])->delete();
-        
+
         $movie->delete();
         return redirect()->back();
     }

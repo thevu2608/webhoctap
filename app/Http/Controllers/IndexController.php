@@ -114,8 +114,14 @@ class IndexController extends Controller
         $episode_first = Episode::with('movie')->where('movie_id', $movie->id)->first();
         $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)
             ->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
+        //Lấy 3 tập gần nhất
         $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
-        return view('pages/movie', compact('genre', 'country', 'category', 'movie', 'movie_related', 'phimhot_slidebar', 'phimhot_trailer', 'episode', 'episode_first'));
+        // lấy tổng tập đã thêm
+        $episode_list = Episode::with('movie')->where('movie_id', $movie->id)->get();
+        $episode_count = $episode_list->count();
+        
+        return view('pages/movie', compact('genre', 'country', 'category', 'movie', 'movie_related',
+         'phimhot_slidebar', 'phimhot_trailer', 'episode', 'episode_first', 'episode_count'));
     }
     public function watch($slug, $tap)
     {
