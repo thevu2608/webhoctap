@@ -103,7 +103,7 @@
 
                                         </li>
                                     @else
-                                        <li class="list-info-group-item"><span>Phim Lẻ</span>
+                                        <li class="list-info-group-item"><span>Phim Lẻ</span></li>
                                     @endif
                                     <li class="list-info-group-item"><span>Thể loại</span> :
                                         @foreach ($movie->movie_genre as $key => $gen)
@@ -122,21 +122,57 @@
                                             href="{{ route('country', $movie->country->slug) }}"
                                             rel="tag">{{ $movie->country->title }}</a></li>
                                     @if ($episode_count > 0)
-                                        @if ($movie->thuocphim == 'phim bo')
-                                            <li class="list-info-group-item"><span>Tập phim mới nhất</span> :
+                                        <li class="list-info-group-item"><span>Tập phim mới nhất</span> :
+                                            @if ($movie->thuocphim == 'phim bo')
                                                 @foreach ($episode as $key => $ep)
                                                     <a href="{{ url('xem-phim/' . $ep->movie->slug . '/tap-' . $ep->episode) }}"
                                                         rel="tag">Tập
                                                         {{ $ep->episode }}</a>
                                                 @endforeach
-                                            </li>
-                                        @elseif($movie->thuocphim == 'phim le')
-                                            <a href="" rel="tag">HD</a>
-                                            <a href="" rel="tag">Full HD</a>
-                                        @endif
+                                            @elseif($movie->thuocphim == 'phim le')
+                                                @foreach ($episode as $key => $ep)
+                                                    <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $ep->episode) }}"
+                                                        rel="tag">{{ $ep->episode }}</a>
+                                                @endforeach
+                                            @endif
+                                        </li>
                                     @else
-                                        Đang cập nhật
+                                        <li class="list-info-group-item"><span>Đang cập nhật</span>
                                     @endif
+                                    </li>
+                                    <ul class="list-inline rating"  title="Average Rating">
+
+                                        @for($count=1; $count<=5; $count++)
+
+                                          @php
+
+                                            if($count<=$rating){
+                                              $color = 'color:#ffcc00;'; //mau vang
+                                            }
+                                            else {
+                                              $color = 'color:#ccc;'; //mau xam
+                                            }
+
+                                          @endphp
+
+                                          <li title="star_rating"
+
+                                          id="{{$movie->id}}-{{$count}}"
+
+                                          data-index="{{$count}}"
+                                          data-movie_id="{{$movie->id}}"
+
+                                          data-rating="{{$rating}}"
+                                          class="rating"
+                                          style="cursor:pointer; {{$color}}
+
+                                          font-size:30px;">&#9733;</li>
+
+                                        @endfor
+
+                              </ul>
+                                    <span class="total_rating">Đánh giá : {{ $rating }}/{{ $count_total }}
+                                        lượt</span>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>

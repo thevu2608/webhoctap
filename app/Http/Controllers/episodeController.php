@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Episode;
 use App\Models\Movie;
 use Carbon\Carbon;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 
 class episodeController extends Controller
@@ -40,14 +41,24 @@ class episodeController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $episode = new Episode();
-        $episode->movie_id = $data['movie_id'];
-        $episode->linkphim = $data['link'];
-        $episode->episode = $data['episode'];
-        $episode->create_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $episode->save();
+        $check = Episode::where('episode', $data['episode'])->where('movie_id', $data['movie_id'])->count();
+            if($check>0){
+                return redirect()->back();
+            }else{
+            $episode = new Episode();
+            $episode->movie_id = $data['movie_id'];
+            $episode->linkphim = $data['link'];
+            $episode->episode = $data['episode'];
+            $episode->create_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $episode->save();
+        }
         return redirect()->route('episode.index');
+    }
+    public function add_episode($id){
+        $movie = Movie::find($id);
+        $list_episode = Episode::with('movie')->where('movie_id', $id)->orderBy('episode', 'DESC')->get();
+        return view('admincp.episode.add_episode', compact('list_episode', 'movie'));
     }
 
     /**
@@ -116,7 +127,9 @@ class episodeController extends Controller
         }
         else{
             $output .= '<option value="HD">HD</option>
-            <option value="Full HD"> Full HD</option> ';
+            <option value="Full HD"> Full HD</option>
+            <option value="HDR"> HDR </option>
+            <option value="SD"> SD </option> ';
         }
         echo $output;
     }

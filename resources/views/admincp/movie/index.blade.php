@@ -5,11 +5,13 @@
         <div class="row justify-content">
             <a href="{{ route('movie.create') }}" class="btn btn-primary float-left">Thêm phim</a>
             <div class="col-md-12">
-                <table class="table" id="table-movie">
+                <table class="table table-responsive" id="table-movie">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Tên phim</th>
+                            <th scope="col">Thêm tập phim</th>
+                            <th scope="col">Số tập</th>
                             <th scope="col">Tags</th>
                             <th scope="col">Thời lượng phim</th>
                             <th scope="col">Hình ảnh</th>
@@ -22,7 +24,6 @@
                             <th scope="col">Thuộc phim</th>
                             <th scope="col">Thể loại</th>
                             <th scope="col">Quốc gia</th>
-                            <th scope="col">Số tập</th>
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col">Năm phim</th>
@@ -35,63 +36,108 @@
                         @foreach ($list as $key => $cate)
                             <tr>
                                 <th scope="row">{{ $key }}</th>
-                                <td>{{ $cate->title ?? 'N/A' }}</td>
-                                <td>{{ $cate->tags ?? 'N/A' }}</td>
-                                <td>{{ $cate->time_movie ?? 'N/A' }}</td>
-                                <td><img width="60%" src="{{ asset('uploads/movie/' . $cate->image) }}"></td>
+                                <td>{{ $cate->title }}</td>
+                                <td><a href="{{ route('add-episode', $cate->id) }}" class="btn btn-danger btn-sm">Thêm link
+                                        phim</a></td>
+                                <td>{{ $cate->episode_count }}/{{ $cate->sotap }} Tập</td>
+                                <td>{{ $cate->tags }}</td>
+                                <td>{{ $cate->time_movie }}</td>
                                 <td>
-                                    @if ($cate->phim_hot == 0)
-                                        Không phải phim hot
-                                    @else
-                                        Phim hot
-                                    @endif
+                                    <img width="100" src="{{ asset('uploads/movie/' . $cate->image) }}">
+                                    <input type="file" data-movie_id="{{$cate->id}}" id="file-{{$cate->id}}"
+                                        class="form-control-file file-image" accept="image/*">
+                                    <span id="success-image"></span>
                                 </td>
                                 <td>
-                                    @if ($cate->resolution == 0)
-                                        HD
-                                    @elseif($cate->resolution == 1)
-                                        SD
-                                    @elseif($cate->resolution == 2)
-                                        HDR
-                                    @elseif($cate->resolution == 3)
-                                        FullHD
-                                    @else
-                                        Trailer
-                                    @endif
+                                    <select name="" id="{{ $cate->id }}" class="phimhot_choose">
+                                        @if ($cate->phim_hot == 0)
+                                            <option value="1">Hot</option>
+                                            <option selected value="0">Không</option>
+                                        @else
+                                            <option selected value="1">Hot</option>
+                                            <option value="0">Không</option>
+                                        @endif
+                                    </select>
                                 </td>
                                 <td>
-                                    @if ($cate->vietsub == 0)
-                                        Vietsub
-                                    @else
-                                        Thuyết minh
-                                    @endif
+                                    @php
+                                        $options = [
+                                            '0' => 'HD',
+                                            '1' => 'SD',
+                                            '2' => 'HDR',
+                                            '3' => 'FullHD',
+                                            '4' => 'Trailer',
+                                        ];
+                                    @endphp
+                                    <select name="" id="{{ $cate->id }}" class="dinhdang_choose">
+                                        @foreach ($options as $key => $value)
+                                            <option {{ $cate->resolution == $key ? 'selected' : '' }}
+                                                value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+
+                                    </select>
                                 </td>
-                                {{-- <td>{{$cate->description ?? 'N/A'}}</td> --}}
-                                <td>{{ $cate->slug ?? 'N/A' }}</td>
                                 <td>
-                                    @if ($cate->status)
-                                        Hiển thị
-                                    @else
-                                        Không hiển thị
-                                    @endif
+                                    <select name="" id="{{ $cate->id }}" class="vietsub_choose">
+                                        @if ($cate->vietsub == 0)
+                                            <option selected value="0">vietsub</option>
+                                            <option value="1">Thuyết minh</option>
+                                        @else
+                                            <option value="0">vietsub</option>
+                                            <option selected value="1">Thuyết minh</option>
+                                        @endif
+                                    </select>
                                 </td>
-                                <td>{{ $cate->category->title ?? 'N/A' }}</td>
-                                <td>{{ $cate->thuocphim}}</td>
+                                {{-- <td>{{$cate->description}}</td> --}}
+                                <td>{{ $cate->slug }}</td>
+                                <td>
+                                    <select name="" id="{{ $cate->id }}" class="trangthai_choose">
+                                        @if ($cate->status == 0)
+                                            <option selected value="0">Không hiển thị</option>
+                                            <option value="1">Hiển thị</option>
+                                        @else
+                                            <option value="0">Không hiển thị</option>
+                                            <option selected value="1">Hiển thị</option>
+                                        @endif
+                                    </select>
+                                </td>
+                                <td>
+                                    {!! Form::select('category_id', $category, isset($cate) ? $cate->category->id : '', [
+                                        'class' => 'category_choose',
+                                        'id' => $cate->id,
+                                    ]) !!}
+                                </td>
+                                <td>
+                                    <select name="" id="{{ $cate->id }}" class="thuocphim_choose">
+                                        @if ($cate->thuocphim == 'phim le')
+                                            <option selected value="phim le">Phim Lẻ</option>
+                                            <option value="phim bo">Phim Bộ</option>
+                                        @else
+                                            <option value="phim le">Phim Lẻ</option>
+                                            <option selected value="phim bo">Phim Bộ</option>
+                                        @endif
+                                    </select>
+                                </td>
                                 <td>
                                     @foreach ($cate->movie_genre as $gen)
-                                        <span class="badge badge-dark">{{ $gen->title ?? 'N/A' }}</span>
+                                        <span class="badge badge-dark">{{ $gen->title }}</span>
                                     @endforeach
                                 </td>
 
-                                <td>{{ $cate->country->title ?? 'N/A' }}</td>
-                                <td>{{ $cate->sotap }}</td>
-                                <td>{{ $cate->date_created ?? 'N/A' }}</td>
-                                <td>{{ $cate->date_update ?? 'N/A' }}</td>
+                                <td>
+                                    {!! Form::select('country_id', $country, isset($cate) ? $cate->country->id : '', [
+                                        'class' => 'country_choose',
+                                        'id' => $cate->id,
+                                    ]) !!}
+                                </td>
+                                <td>{{ $cate->date_created }}</td>
+                                <td>{{ $cate->date_update }}</td>
                                 <td>
 
-                                    {!! Form::selectYear('Year', 2000, 2023, isset($cate->year) ? $cate->year : '', [
+                                    {!! Form::selectYear('Year', 2010, 2023, isset($cate->year) ? $cate->year : '', [
                                         'class' => 'select-year',
                                         'id' => $cate->id,
+                                        'placeholder' => '--Năm Phim--',
                                     ]) !!}
                                 </td>
                                 <td>

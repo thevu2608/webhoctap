@@ -24,7 +24,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -81,7 +81,7 @@
         </nav>
         <main class="py-4">
             @if (Auth::user())
-                <div class="container">
+                <div class="container-fluid">
                     @include('layouts.navbar')
                 </div>
             @endif
@@ -92,51 +92,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $('.select-movie').change(function() {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('select-movie') }}",
-                method: "GET",
-                data: {
-                    id: id
-                },
-                success: function(data) {
-                    $('#episode').html(data)
-                }
-            });
-        })
-    </script>
-    <script>
-        $('.select-year').change(function() {
-            var year = $(this).find(":selected").val();
-            var id_phim = $(this).attr("id");
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-                },
-                url: "{{ url('/update-year-phim') }}",
-                method: "POST",
-                data: {
-                    year: year,
-                    id_phim: id_phim,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function() {
-                    alert('Thay đổi phim theo năm ' + year + ' thành công !');
-                }
-            })
-        })
-    </script>
+    <script src="{{ asset('js/thaydoiad.js') }}"></script>
     <script>
         $('.select-season').change(function() {
             var season = $(this).find(":selected").val();
             var id_phim = $(this).attr("id");
+            console.log(season);
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
                 },
-                url: "{{ url('/update-season-phim') }}",
+                url: "/update-season-phim",
                 method: "POST",
                 data: {
                     season: season,
@@ -147,35 +113,67 @@
                     alert('Thay đổi phim season ' + season + ' thành công !');
                 }
             })
-        })
-    </script>
-    <script>
-        $('.select-topview').change(function() {
-            var topview = $(this).find(":selected").val();
+        });
+        $('.select-year').change(function() {
+            var year = $(this).find(":selected").val();
             var id_phim = $(this).attr("id");
-            if (topview == 0) {
-                var text = 'Ngày';
-            } else if (topview == 1) {
-                var text = 'tuần';
 
-            } else {
-                var text = 'tháng';
-            }
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
                 },
-                url: "{{ url('/update-topview-phim') }}",
-                method: "GET",
+                url: "/update-year-phim",
+                method: "POST",
                 data: {
-                    topview: topview,
-                    id_phim: id_phim
+                    year: year,
+                    id_phim: id_phim,
+                    _token: "{{ csrf_token() }}"
                 },
                 success: function() {
-                    alert('Thay đổi phim Top View theo ' + text + ' thành công !');
+                    alert('Thay đổi phim theo năm ' + year + ' thành công !');
                 }
             })
-        })
+        });
+    </script>
+    <script>
+        $(document).on('change', '.file-image', function() {
+
+            var movie_id = $(this).data('movie_id');
+            var files = $("#file-" + movie_id)[0].files;
+
+            //console.log(files);
+            var image = document.getElementById("file-" + movie_id).files[0];
+
+
+            var form_data = new FormData();
+
+            form_data.append("file", document.getElementById("file-" + movie_id).files[0]);
+            form_data.append("movie_id", movie_id);
+
+
+
+            $.ajax({
+                url: "{{ route('update-image-movie-ajax') }}",
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+
+                contentType: false,
+                cache: false,
+                processData: false,
+
+                success: function() {
+                    location.reload();
+                    $('#success_image').html(
+                        '<span class="text-success">Cập nhật hình ảnh thành công</span>');
+                }
+            });
+
+
+
+        });
     </script>
     <script type="text/javascript">
         let table = new DataTable('#table-movie');

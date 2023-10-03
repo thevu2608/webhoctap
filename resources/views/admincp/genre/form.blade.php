@@ -65,7 +65,7 @@
                         {!! Form::close() !!}
                     </div>
                 </div>
-                <table class="table">
+                <table class="table"  id="table-movie">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

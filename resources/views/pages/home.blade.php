@@ -60,6 +60,7 @@
                                         Trailer
                                     @endif
                                 </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                    {{ $hot->episode_count }}/{{ $hot->sotap }} |
                                     @if ($hot->vietsub == 0)
                                         VietSub
                                         @if ($hot->season != 0)
@@ -145,6 +146,8 @@
                                                 Trailer
                                             @endif
                                         </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+
+                                            {{ $mov->episode_count }}/{{ $mov->sotap }} |
                                             @if ($mov->vietsub == 0)
                                                 VietSub
                                                 @if ($mov->season != 0)
