@@ -182,6 +182,7 @@ class movieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
+        toastr()->success('Create','Thêm phim thành công!');
 
         $movie -> movie_genre()->sync($data['genre']);
         return redirect()->route('movie.index');
@@ -263,6 +264,7 @@ class movieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
+        toastr()->success('Update','Sửa phim thành công!');
         $movie -> movie_genre()->sync($data['genre']);
         return redirect()->route('movie.index');
     }
@@ -284,6 +286,7 @@ class movieController extends Controller
         Episode::whereIn('movie_id', [$movie->id])->delete();
 
         $movie->delete();
+        toastr()->warning('Delete','Xóa phim thành công!');
         return redirect()->back();
     }
     public function phimhot_choose(Request $request){

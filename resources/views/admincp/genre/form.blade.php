@@ -27,6 +27,7 @@
                             'placeholder' => 'Nhập vào dữ liệu ...',
                             'id' => 'slug',
                             'onkeyup' => 'ChangeToSlug()',
+                            'required'
                         ]) !!}
                     </div>
                     <br>
@@ -47,6 +48,7 @@
                             'class' => 'form-control',
                             'placeholder' => 'Nhập vào dữ liệu ...',
                             'id' => 'description',
+                            'required'
                         ]) !!}
                     </div>
                     <br>

@@ -28,6 +28,7 @@
                             'placeholder' => 'Nhập vào dữ liệu ...',
                             'id' => 'slug',
                             'onkeyup' => 'ChangeToSlug()',
+                            'required'
                         ]) !!}
                     </div>
                     <br>
@@ -47,6 +48,7 @@
                                 'placeholder' => 'Nhập vào dữ liệu ...',
                                 'id' => 'slug',
                                 'onkeyup' => 'ChangeToSlug()',
+                                'required'
                             ]) !!}
                         </div>
                         <br>
@@ -56,6 +58,7 @@
                         {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', [
                             'class' => 'form-control',
                             'placeholder' => 'Nhập vào dữ liệu ...',
+                            'required'
                         ]) !!}
                     </div>
                     <br>
@@ -85,6 +88,7 @@
                                 'style' => 'resize:none',
                                 'class' => 'form-control',
                                 'placeholder' => 'Nhập vào dữ liệu ...',
+                                'required'
                             ]) !!}
                         </div>
                         <br>
@@ -96,6 +100,7 @@
                                 'class' => 'form-control',
                                 'placeholder' => 'Nhập vào dữ liệu ...',
                                 'id' => 'description',
+                                'required'
                             ]) !!}
                         </div>
                         <br>
@@ -172,10 +177,10 @@
                         <br>
                         <div class="form-group>
                             {!! Form::label('Image', 'Hình ảnh', []) !!}
-                            {!! Form::file('image', ['class' => 'form-control-file']) !!}
+                            {!! Form::file('image', ['class' => 'form-control-file', 'required']) !!}
                             <br>
                             @if (isset($movie))
-                            <img width="20%" src="{{ asset('uploads/movie/' . $movie->image) }}">
+                            <img width="20%" src="{{ asset('uploads/movie/' . $movie->image_url) }}">
                             @endif
                         </div>
                         <br>

@@ -53,6 +53,7 @@ class episodeController extends Controller
             $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
             $episode->save();
         }
+        toastr()->success('Create','Thêm tập phim thành công!');
         return redirect()->route('episode.index');
     }
     public function add_episode($id){
@@ -102,6 +103,8 @@ class episodeController extends Controller
         $episode->create_time = Carbon::now('Asia/Ho_Chi_Minh');
         $episode->update_time = Carbon::now('Asia/Ho_Chi_Minh');
         $episode->save();
+        toastr()->success('Update','Sửa tập phim thành công!');
+
         return redirect()->route('episode.index');
     }
 
@@ -114,6 +117,7 @@ class episodeController extends Controller
     public function destroy($id)
     {
         $episode = Episode::find($id)->delete();
+        toastr()->warning('Delete','Xóa tập phim thành công!');
         return redirect()->back();
     }
     public function select_movie(){

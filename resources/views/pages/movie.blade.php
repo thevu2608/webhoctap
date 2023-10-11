@@ -140,39 +140,24 @@
                                         <li class="list-info-group-item"><span>Đang cập nhật</span>
                                     @endif
                                     </li>
-                                    <ul class="list-inline rating"  title="Average Rating">
+                                    <div class="rating-container text-right">
+                                        <span class="total_rating">Đánh giá: {{ $rating }}/{{ $count_total }} lượt</span>
+                                        <ul class="list-inline rating" title="Average Rating">
+                                            @for($count=1; $count<=5; $count++)
+                                                @php
+                                                    $color = $count <= $rating ? 'color:#ffcc00;' : 'color:#ccc;';
+                                                @endphp
+                                                <li title="star_rating"
+                                                    id="{{ $movie->id }}-{{ $count }}"
+                                                    data-index="{{ $count }}"
+                                                    data-movie_id="{{ $movie->id }}"
+                                                    data-rating="{{ $rating }}"
+                                                    class="rating"
+                                                    style="cursor:pointer; {{ $color }} font-size:30px;">&#9733;</li>
+                                            @endfor
+                                        </ul>
+                                    </div>
 
-                                        @for($count=1; $count<=5; $count++)
-
-                                          @php
-
-                                            if($count<=$rating){
-                                              $color = 'color:#ffcc00;'; //mau vang
-                                            }
-                                            else {
-                                              $color = 'color:#ccc;'; //mau xam
-                                            }
-
-                                          @endphp
-
-                                          <li title="star_rating"
-
-                                          id="{{$movie->id}}-{{$count}}"
-
-                                          data-index="{{$count}}"
-                                          data-movie_id="{{$movie->id}}"
-
-                                          data-rating="{{$rating}}"
-                                          class="rating"
-                                          style="cursor:pointer; {{$color}}
-
-                                          font-size:30px;">&#9733;</li>
-
-                                        @endfor
-
-                              </ul>
-                                    <span class="total_rating">Đánh giá : {{ $rating }}/{{ $count_total }}
-                                        lượt</span>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>

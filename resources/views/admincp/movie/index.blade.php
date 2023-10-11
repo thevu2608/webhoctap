@@ -43,7 +43,7 @@
                                 <td>{{ $cate->tags }}</td>
                                 <td>{{ $cate->time_movie }}</td>
                                 <td>
-                                    <img width="100" src="{{ asset('uploads/movie/' . $cate->image) }}">
+                                    <img width="100 " src="{{ asset('uploads/movie/' . $cate->image) }}">
                                     <input type="file" data-movie_id="{{$cate->id}}" id="file-{{$cate->id}}"
                                         class="form-control-file file-image" accept="image/*">
                                     <span id="success-image"></span>
