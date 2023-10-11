@@ -140,24 +140,34 @@
                                         <li class="list-info-group-item"><span>Đang cập nhật</span>
                                     @endif
                                     </li>
-                                    <div class="rating-container text-right">
-                                        <span class="total_rating">Đánh giá: {{ $rating }}/{{ $count_total }} lượt</span>
+                                    <div>
+                                        <span class="total_rating">Đánh giá: {{ $rating }}/{{ $count_total }}
+                                            lượt</span>
                                         <ul class="list-inline rating" title="Average Rating">
-                                            @for($count=1; $count<=5; $count++)
+                                            @for ($count = 1; $count <= 5; $count++)
                                                 @php
-                                                    $color = $count <= $rating ? 'color:#ffcc00;' : 'color:#ccc;';
+                                                    if ($count <= $rating) {
+                                                        $color = 'color:#ffcc00;';
+                                                    } else {
+                                                        $color = 'color:#ccc;';
+                                                    }
                                                 @endphp
-                                                <li title="star_rating"
-                                                    id="{{ $movie->id }}-{{ $count }}"
-                                                    data-index="{{ $count }}"
-                                                    data-movie_id="{{ $movie->id }}"
-                                                    data-rating="{{ $rating }}"
-                                                    class="rating"
-                                                    style="cursor:pointer; {{ $color }} font-size:30px;">&#9733;</li>
+                                                <li title="star_rating" id="{{ $movie->id }}-{{ $count }}"
+                                                    data-index="{{ $count }}" data-movie_id="{{ $movie->id }}"
+                                                    data-rating="{{ $rating }}" class="rating"
+                                                    style="cursor:pointer; {{ $color }} font-size:30px;">&#9733;
+                                                </li>
                                             @endfor
                                         </ul>
                                     </div>
-
+                                    <div class="movie-trailer">
+                                        @php
+                                        $current_url = Request::url();
+                                        @endphp
+                                        <div class="fb-like" data-href="{{$current_url}}"
+                                            data-width="" data-layout="button_count" data-action="like" data-size="large"
+                                            data-share="true"></div>
+                                    </div>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>

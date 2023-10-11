@@ -268,7 +268,7 @@
 
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0"
-        nonce="R8h1onYj"></script>
+        nonce="gFKvdOtJ"></script>
     <script type='text/javascript' src="{{ asset('js/trailer.js') }}"></script>
     <script>
         $(document).ready(function() {

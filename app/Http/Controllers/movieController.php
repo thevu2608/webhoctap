@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
+
 class movieController extends Controller
 {
     /**
@@ -23,15 +24,15 @@ class movieController extends Controller
     public function index()
     {
         $list = Movie::with('category', 'movie_genre', 'country')->withCount('episode')->orderBy('id', 'DESC')->get();
-        $category = Category::pluck('title','id');
-        $country = Country::pluck('title','id');
-        $path = public_path()."/json_file/";
-        if (!is_dir($path)){
+        $category = Category::pluck('title', 'id');
+        $country = Country::pluck('title', 'id');
+        $path = public_path() . "/json_file/";
+        if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-        File::put($path.'movies.json', json_encode($list));
+        File::put($path . 'movies.json', json_encode($list));
 
-        return view('admincp.movie.index', compact('list','category','country'));
+        return view('admincp.movie.index', compact('list', 'category', 'country'));
     }
     public function update_year(Request $request)
     {
@@ -79,11 +80,18 @@ class movieController extends Controller
             </div>
                 <p class="title">' . $mov->title . '</p>
             </a>
-            <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
+            <div class="viewsCount" style="color: #9d9d9d;">' . $mov->count_view . ' Lượt xem' .  '</div>
+            <div class="viewsCount" style="color: #9d9d9d;">' . $mov->year . '</div>
             <div style="float: left;">
-            <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
-                <span style="width: 0%"></span>
-            </span>
+            <ul class="list-inline rating" title="Average Rating">';
+            for ($count = 1; $count <= 5; $count++) {
+                $output .= '<li title="star_rating"
+                style=" font-size : 20px; color : #ffcc00; padding : 0  ">
+                &#9733;
+                </li>';
+            }
+            $output .= '</ul>
+
         </div>';
         }
         echo $output;
@@ -113,11 +121,17 @@ class movieController extends Controller
             </div>
                 <p class="title">' . $mov->title . '</p>
             </a>
-            <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
+            <div class="viewsCount" style="color: #9d9d9d;">' . $mov->count_view . ' Lượt xem' . '</div>
+            <div class="viewsCount" style="color: #9d9d9d;">' . $mov->year . '</div>
             <div style="float: left;">
-            <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
-                <span style="width: 0%"></span>
-            </span>
+            <ul class="list-inline rating" title="Average Rating">';
+            for ($count = 1; $count <= 5; $count++) {
+                $output .= '<li title="star_rating"
+                style=" font-size : 20px; color : #ffcc00; padding : 0  ">
+                &#9733;
+                </li>';
+            }
+            $output .= '</ul>
         </div>';
         }
         echo $output;
@@ -162,9 +176,10 @@ class movieController extends Controller
         $movie->category_id = $data['category_id'];
         $movie->thuocphim = $data['thuocphim'];
         $movie->country_id = $data['country_id'];
+        $movie->count_view = rand(100, 99999);
         $movie->date_created = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
-        foreach ($data['genre'] as $key => $gen){
+        foreach ($data['genre'] as $key => $gen) {
             $movie->genre_id = $gen[0];
         }
         // Thêm hình ảnh
@@ -182,9 +197,9 @@ class movieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
-        toastr()->success('Create','Thêm phim thành công!');
+        toastr()->success('Create', 'Thêm phim thành công!');
 
-        $movie -> movie_genre()->sync($data['genre']);
+        $movie->movie_genre()->sync($data['genre']);
         return redirect()->route('movie.index');
     }
 
@@ -243,7 +258,7 @@ class movieController extends Controller
         $movie->thuocphim = $data['thuocphim'];
         $movie->country_id = $data['country_id'];
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
-        foreach ($data['genre'] as $key => $gen){
+        foreach ($data['genre'] as $key => $gen) {
             $movie->genre_id = $gen[0];
         }
         // Thêm hình ảnh
@@ -264,8 +279,8 @@ class movieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
-        toastr()->success('Update','Sửa phim thành công!');
-        $movie -> movie_genre()->sync($data['genre']);
+        toastr()->success('Update', 'Sửa phim thành công!');
+        $movie->movie_genre()->sync($data['genre']);
         return redirect()->route('movie.index');
     }
 
@@ -286,65 +301,66 @@ class movieController extends Controller
         Episode::whereIn('movie_id', [$movie->id])->delete();
 
         $movie->delete();
-        toastr()->warning('Delete','Xóa phim thành công!');
+        toastr()->warning('Delete', 'Xóa phim thành công!');
         return redirect()->back();
     }
-    public function phimhot_choose(Request $request){
+    public function phimhot_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->phim_hot = $data['phimhot_val'];
         $movie->save();
-
     }
-    public function vietsub_choose(Request $request){
+    public function vietsub_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->vietsub = $data['vietsub_val'];
         $movie->save();
-
     }
-    public function category_choose(Request $request){
+    public function category_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->category_id = $data['category_id'];
         $movie->save();
-
     }
-    public function country_choose(Request $request){
+    public function country_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->country_id = $data['country_id'];
         $movie->save();
-
     }
-    public function trangthai_choose(Request $request){
+    public function trangthai_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->status = $data['trangthai_id'];
         $movie->save();
-
     }
-    public function thuocphim_choose(Request $request){
+    public function thuocphim_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->thuocphim = $data['thuocphim_val'];
         $movie->save();
-
     }
-    public function resolution_choose(Request $request){
+    public function resolution_choose(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['movie_id']);
         $movie->resolution = $data['resolution_val'];
         $movie->save();
-
     }
-    public function update_image_movie_ajax(Request $request){
+    public function update_image_movie_ajax(Request $request)
+    {
         $get_image = $request->file('file');
         $movie_id = $request->movie_id;
 
-        if($get_image){
+        if ($get_image) {
             $movie = Movie::find($movie_id);
-            unlink('uploads/movie/'. $movie->image);
+            unlink('uploads/movie/' . $movie->image);
             //Thêm ảnh mới
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
@@ -356,9 +372,6 @@ class movieController extends Controller
             // Gán giá trị cho cột 'image'
             $movie->image = $new_image;
             $movie->save();
-
         }
-
     }
-
 }

@@ -126,6 +126,10 @@ class IndexController extends Controller
         $rating = Rating::where('movie_id', $movie->id)->avg('rating');
         $rating = round($rating);
         $count_total = Rating::where('movie_id', $movie->id)->count();
+        $count_view = $movie->count_view;
+        $count_view = $count_view + 1;
+        $movie->count_view = $count_view;
+        $movie -> save();
 
         return view('pages/movie', compact(
             'genre',
