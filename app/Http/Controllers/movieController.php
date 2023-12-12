@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Genre;
+use App\Models\Info;
 use App\Models\Movie;
 use App\Models\Movie_Genre;
 use Carbon\Carbon;

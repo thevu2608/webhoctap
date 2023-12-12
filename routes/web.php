@@ -9,6 +9,7 @@ use App\Http\Controllers\genreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\movieController;
 
 /*
@@ -57,6 +58,10 @@ Route::get('/update-topview-phim', [MovieController::class, 'update_topview']);
 Route::post('/update-topview', [MovieController::class, 'topview']);
 Route::get('/filter-topview-phim', [MovieController::class, 'filter_topview']);
 Route::post('/update-season-phim', [MovieController::class, 'update_season']);
+
+// Thông tin website
+Route::resource('info', InfoController::class);
+
 
 Route::get('/phimhot-choose', [MovieController::class, 'phimhot_choose'])->name('phimhot-choose');
 Route::get('/vietsub-choose', [MovieController::class, 'vietsub_choose'])->name('vietsub-choose');
