@@ -16,7 +16,8 @@ class categoryController extends Controller
      */
     public function index()
     {
-        //
+        $list = Category::orderBy('position', 'ASC')->where('status', 1)->get();
+        return view('admincp.category.index', compact('list'));
     }
 
     /**
@@ -26,8 +27,7 @@ class categoryController extends Controller
      */
     public function create()
     {
-        $list = Category::orderBy('position', 'ASC')->where('status', 1)->get();
-        return view('admincp.category.form', compact('list'));
+        return view('admincp.category.form');
     }
 
     /**
@@ -46,7 +46,7 @@ class categoryController extends Controller
         $category->status = $data['status'];
         $category->save();
         toastr()->success('Create','Thêm danh mục thành công!');
-        return redirect()->back();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class categoryController extends Controller
         $category->status = $data['status'];
         $category->save();
         toastr()->success('Update','Cập nhật danh mục thành công!');
-        return redirect()->back();
+        return redirect()->route('category.index');
     }
 
     /**

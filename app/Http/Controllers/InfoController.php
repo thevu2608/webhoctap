@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Info;
 use Illuminate\Http\Request;
 
 class InfoController extends Controller
@@ -23,7 +24,8 @@ class InfoController extends Controller
      */
     public function create()
     {
-        return view('admincp.info.form');
+        $info = Info::find(1);
+        return view('admincp.info.form', compact('info'));
     }
 
     /**
@@ -68,7 +70,29 @@ class InfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $info = Info::find($id);
+        $info->title = $data['title'];
+        $info->description = $data['description'];
+        $info->copyright = $data['copyright'];
+        $get_image = $request->file('image');
+
+        if ($get_image) {
+
+            unlink('uploads/logo/' . $info->logo);
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 9999) . '.' . $get_image->getClientOriginalExtension();
+
+            // Di chuyển và lưu hình ảnh vào thư mục tương ứng
+            $get_image->move('uploads/logo/', $new_image);
+
+            // Gán giá trị cho cột 'image'
+            $info->logo = $new_image;
+        }
+        $info->save();
+        toastr()->success('Update','Cập nhật thông tin website thành công!');
+        return redirect()->back();
     }
 
     /**

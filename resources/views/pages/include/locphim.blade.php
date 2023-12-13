@@ -29,7 +29,7 @@
             <div class="form-group">
                 <select class="form-control style-filter" name="genre" id="exampleFormControlSelect1">
                     <option value="">--Thể loại--</option>
-                    @foreach ($genre as $key => $gens)
+                    @foreach ($genre_home as $key => $gens)
                         <option {{ isset($_GET['genre']) && $_GET['genre'] == $gens->id ? 'selected' : '' }}
                             value="{{ $gens->id }}">{{ $gens->title }}</option>
                     @endforeach
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <select class="form-control style-filter" name="country" id="exampleFormControlSelect1">
                     <option value="">--Quốc gia--</option>
-                    @foreach ($country as $key => $countrys)
+                    @foreach ($country_home as $key => $countrys)
                         <option {{ isset($_GET['country']) && $_GET['country'] == $countrys->id ? 'selected' : '' }}
                             value="{{ $countrys->id }}">{{ $countrys->title }}</option>
                     @endforeach

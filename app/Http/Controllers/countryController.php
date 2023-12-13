@@ -14,7 +14,8 @@ class countryController extends Controller
      */
     public function index()
     {
-        //
+        $list = Country::all();
+        return view('admincp.country.index', compact('list'));
     }
 
     /**
@@ -24,8 +25,7 @@ class countryController extends Controller
      */
     public function create()
     {
-        $list = Country::all();
-        return view('admincp.country.form', compact('list'));
+        return view('admincp.country.form');
     }
 
     /**
@@ -44,7 +44,7 @@ class countryController extends Controller
         $country->status = $data['status'];
         $country->save();
         toastr()->success('Create','Thêm quốc gia thành công!');
-        return redirect()->back();
+        return redirect()->route('country.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class countryController extends Controller
         $country->status = $data['status'];
         $country->save();
         toastr()->success('Update','Sửa quốc gia thành công!');
-        return redirect()->back();
+        return redirect()->route('country.index');
     }
 
     /**

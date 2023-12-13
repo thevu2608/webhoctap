@@ -45,8 +45,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('category', categoryController::class);
 Route::post('resorting', [categoryController::class, 'resorting'])->name('resorting');
 Route::get('select-movie', [episodeController::class, 'select_movie'])->name('select-movie');
-
-
 Route::get('add-episode/{id}', [episodeController::class, 'add_episode'])->name('add-episode');
 
 Route::resource('genre', genreController::class);
