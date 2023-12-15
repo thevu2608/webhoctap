@@ -1,3 +1,9 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
 <!DOCTYPE html>
 <html>
 
@@ -8,14 +14,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords"
-        content="Glance Design Dashboard Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+        content="Glance Design Dashboard Responsive web template, Bootstrap Web Templates, Flat Web Teadminmplates, Android Compatible web template,
 SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript">
       addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 
                       function hideURLbar() { window.scrollTo(0, 1); }
     </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('admin/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS -->
@@ -218,38 +224,38 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="header-right">
                 {{-- <div class="profile_details">
-                    <ul>
-                        <li class="dropdown profile_details_drop">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <div class="profile_img">
-                                    <span class="prfil-img"><img src="images/2.jpg" alt="" />
-                                    </span>
-                                    <div class="user-name">
-                                        <p>Admin Name</p>
-                                        <span>Administrator</span>
-                                    </div>
-                                    <i class="fa fa-angle-down lnr"></i>
-                                    <i class="fa fa-angle-up lnr"></i>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu drp-mnu">
-                                <li>
-                                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-user"></i> My Account</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div> --}}
+            <ul>
+              <li class="dropdown profile_details_drop">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <div class="profile_img">
+                    <span class="prfil-img"><img src="images/2.jpg" alt="" />
+                    </span>
+                    <div class="user-name">
+                      <p>Admin Name</p>
+                      <span>Administrator</span>
+                    </div>
+                    <i class="fa fa-angle-down lnr"></i>
+                    <i class="fa fa-angle-up lnr"></i>
+                    <div class="clearfix"></div>
+                  </div>
+                </a>
+                <ul class="dropdown-menu drp-mnu">
+                  <li>
+                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-user"></i> My Account</a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div> --}}
                 <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
@@ -312,7 +318,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <script src="{{ asset('admin/js/amcharts.js') }}"></script>
                 <script src="{{ asset('admin/js/serial.js') }}"></script>
                 <script src="{{ asset('admin/js/export.min.js') }}"></script>
-                <link rel="stylesheet" href="{{ asset('css/export.css') }}" type="text/css" media="all" />
+                <link rel="stylesheet" href="{{ asset('admin/css/export.css') }}" type="text/css" media="all" />
                 <script src="{{ asset('admin/js/light.js') }}"></script>
                 <!-- for amcharts js -->
                 <script src="{{ asset('admin/js/index1.js') }}"></script>
@@ -513,7 +519,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--//scrolling js-->
     <!-- side nav js -->
     <script src="{{ asset('admin/js/SidebarNav.min.js') }}" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -525,7 +530,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <script>
         $('.sidebar-menu').SidebarNav();
     </script>
-
     <!-- //side nav js -->
     <!-- for index page weekly sales java script -->
     <script src="{{ asset('admin/js/SimpleChart.js') }}"></script>
