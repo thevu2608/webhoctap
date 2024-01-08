@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<table class="table"  id="table-movie">
+<table class="table table-bordered responsive" id="table-movie">
     <thead>
         <tr>
             <th scope="col">#</th>

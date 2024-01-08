@@ -23,7 +23,7 @@
                                 <td><img width="100%" src="{{ asset('uploads/movie/' . $episode->movie->image) }}"></td>
                                 <td>{{ $episode->episode }}</td>
                                 <div class="col-md-2">
-                                    <td>{!! $episode->linkphim !!}</td>
+                                    <td>{{ $episode->linkphim }}</td>
                                 </div>
                                 {{-- <td>
                                     @if ($cate->status)

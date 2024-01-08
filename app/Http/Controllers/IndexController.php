@@ -22,8 +22,10 @@ class IndexController extends Controller
             $search = $_GET['search'];
 
             $movie = Movie::withCount('episode')->where('title', 'LIKE', '%' . $search . '%')->orderBy('date_update', 'DESC')->paginate(40);
-
-            return view('pages/timkiem', compact('search', 'movie'));
+            $movie_seo = Movie::with('genre', 'category', 'country', 'movie_genre')->where('status', 1)->first();
+            $meta_title = $movie_seo->title;
+            $meta_description = $movie_seo->description;
+            return view('pages/timkiem', compact('search', 'movie', 'meta_title', 'meta_description'));
         } else {
             return redirect()->to('/');
         }
@@ -76,7 +78,7 @@ class IndexController extends Controller
             $manny_genre[] = $value->movie_id;
         }
         $movie = Movie::withCount('episode')->where('status', 1)->whereIn('id', $manny_genre)->orderBy('date_update', 'DESC')->paginate(12);
-        return view('pages/genre', compact('genre_slug', 'movie','movie_genre', 'meta_title', 'meta_description'));
+        return view('pages/genre', compact('genre_slug', 'movie', 'movie_genre', 'meta_title', 'meta_description'));
     }
     public function country($slug)
     {
@@ -109,9 +111,15 @@ class IndexController extends Controller
         $movie->save();
 
         return view('pages/movie', compact(
-            'movie','movie_related','episode',
-            'episode_first','episode_count','rating',
-            'count_total', 'meta_title', 'meta_description'
+            'movie',
+            'movie_related',
+            'episode',
+            'episode_first',
+            'episode_count',
+            'rating',
+            'count_total',
+            'meta_title',
+            'meta_description'
         ));
     }
     public function add_rating(Request $request)
@@ -134,7 +142,7 @@ class IndexController extends Controller
     public function watch($slug, $tap)
     {
         $movie = Movie::with('genre', 'category', 'country', 'movie_genre', 'episode')->where('slug', $slug)->where('status', 1)->first();
-        $meta_title = 'Xem phim: '. $movie->title;
+        $meta_title = 'Xem phim: ' . $movie->title;
         $meta_description = $movie->description;
         $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)
             ->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
@@ -148,8 +156,12 @@ class IndexController extends Controller
             $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
         }
         return view('pages/watch', compact(
-            'movie','episode','tapphim',
-            'movie_related', 'meta_title', 'meta_description'
+            'movie',
+            'episode',
+            'tapphim',
+            'movie_related',
+            'meta_title',
+            'meta_description'
         ));
     }
     public function episode()
@@ -168,6 +180,9 @@ class IndexController extends Controller
         } else {
             // Lấy dữ liệu
             $movie = Movie::withCount('episode');
+            $movie_seo = Movie::with('genre', 'category', 'country', 'movie_genre')->where('status', 1)->first();
+            $meta_title = $movie_seo->title;
+            $meta_description = $movie_seo->description;
             if ($genre_get) {
                 $movie = $movie->where('genre_id', '=', $genre_get);
             } elseif ($country_get) {
@@ -178,7 +193,7 @@ class IndexController extends Controller
                 $movie = $movie->orderBy('title', 'ASC');
             }
             $movie = $movie->orderBy('date_update', 'DESC')->paginate(40);
-            return view('pages/locphim', compact('movie'));
+            return view('pages/locphim', compact('movie', 'meta_title', 'meta_description'));
         }
     }
 }

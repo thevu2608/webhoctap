@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +15,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
                       function hideURLbar() { window.scrollTo(0, 1); }
     </script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('admin/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS -->
@@ -115,6 +109,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body class="cbp-spmenu-push">
+    @if(Auth::check())
     <div class="main-content">
         <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <!--left-fixed -navigation-->
@@ -137,7 +132,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <ul class="sidebar-menu">
                             <li class="header">Quản lý Admin</li>
                             <li class="treeview">
-                                <a href="index.html">
+                                <a href="{{ url('/home') }}">
                                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                 </a>
                             </li>
@@ -223,7 +218,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
             </div>
             <div class="header-right">
-                {{-- <div class="profile_details">
+                <div class="profile_details">
             <ul>
               <li class="dropdown profile_details_drop">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -250,12 +245,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
                   </li>
                   <li>
-                    <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
+                    <form action="{{route('logout')}}" method="POST">
+                        @csrf
+                        <i class="fa fa-sign-out"></i>
+                        <input type="submit" class="btn btn-danger btn-sm" value="logout">
+                    </form>
                   </li>
                 </ul>
               </li>
             </ul>
-          </div> --}}
+          </div>
                 <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
@@ -267,10 +266,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col_3">
                     <div class="col-md-3 widget widget1">
                         <div class="r3_counter_box">
-                            <i class="pull-left fa fa-dollar icon-rounded"></i>
+                            <i class="pull-left fa fa-file icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>$452</strong></h5>
-                                <span>Total Revenue</span>
+                                <h5><strong>{{$category_sum}}</strong></h5>
+                                <span>Danh mục phim</span>
                             </div>
                         </div>
                     </div>
@@ -278,35 +277,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <div class="r3_counter_box">
                             <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>$1019</strong></h5>
-                                <span>Online Revenue</span>
+                                <h5><strong>{{$genre_sum}}</strong></h5>
+                                <span>Thể loại phim</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 widget widget1">
                         <div class="r3_counter_box">
-                            <i class="pull-left fa fa-money user2 icon-rounded"></i>
+                            <i class="pull-left fa fa-globe user2 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>$1012</strong></h5>
-                                <span>Expenses</span>
+                                <h5><strong>{{$country_sum}}</strong></h5>
+                                <span>Quốc gia phim</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 widget widget1">
                         <div class="r3_counter_box">
-                            <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+                            <i class="pull-left fa fa-film dollar1 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>$450</strong></h5>
-                                <span>Expenditure</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 widget">
-                        <div class="r3_counter_box">
-                            <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
-                            <div class="stats">
-                                <h5><strong>1450</strong></h5>
-                                <span>Total Users</span>
+                                <h5><strong>{{$movie_sum}}</strong></h5>
+                                <span>Phim</span>
                             </div>
                         </div>
                     </div>
@@ -337,9 +327,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         </div>
         <!--//footer-->
     </div>
+    @else
+    @yield('content')
+    @endif
     <!-- new added graphs chart js-->
     <script src="{{ asset('admin/js/Chart.bundle.js') }}"></script>
     <script src="{{ asset('admin/js/utils.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
         var MONTHS = [
             'January',
@@ -519,12 +514,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--//scrolling js-->
     <!-- side nav js -->
     <script src="{{ asset('admin/js/SidebarNav.min.js') }}" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            $('#table-movie').DataTable();
+        let table = new DataTable('#table-movie', {
+            responsive: true
         });
-      </script>
+    </script>
 
 
     <script>
