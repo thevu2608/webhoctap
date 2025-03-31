@@ -43,7 +43,7 @@ class countryController extends Controller
         $country->description = $data['description'];
         $country->status = $data['status'];
         $country->save();
-        toastr()->success('Create','Thêm quốc gia thành công!');
+        toastr()->success('Create','Thêm tài liệu thành công!');
         return redirect()->route('country.index');
     }
 
@@ -87,7 +87,7 @@ class countryController extends Controller
         $country->description = $data['description'];
         $country->status = $data['status'];
         $country->save();
-        toastr()->success('Update','Sửa quốc gia thành công!');
+        toastr()->success('Update','Sửa tài liệu thành công!');
         return redirect()->route('country.index');
     }
 
@@ -100,7 +100,7 @@ class countryController extends Controller
     public function destroy($id)
     {
         Country::find($id)->delete();
-        toastr()->warning('Dlete','Xóa quốc gia thành công!');
+        toastr()->warning('Dlete','Xóa tài liệu thành công!');
         return redirect()->back();
     }
 }

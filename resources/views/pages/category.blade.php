@@ -1,12 +1,21 @@
 @extends('welcome')
 @section('content')
+<br>
+<br>
+<br>
+<br>
+<br>
     <div class="row container" id="wrapper">
         <div class="halim-panel-filter">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">{{ $cate_slug->title }}</a> »
-                                    <span class="breadcrumb_last" aria-current="page">2020</span></span></span></div>
+                    <div class="filter__item d-none d-md-block filter__checkboxlist_horizontal">
+                        <h4 class="filter__title_horizontal">Chuyên Đề Lớp</h4>
+                        <div class="filter__item__list_horizontal">
+                            <a href="{{ route('category', $cate_slug->slug) }}" title="{{ $cate_slug->title }}">
+                                <span class="sc-coYmiO ezlAks">{{ $cate_slug->title }}</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -14,66 +23,37 @@
                 <div class="ajax"></div>
             </div>
         </div>
-        <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
+
+        <main id="main-contents" class="col-lg-9 col-md-8 result">
             <section>
-                <div class="section-bar clearfix">
-                    <h1 class="section-title"><span>{{ $cate_slug->title }}</span></h1>
-                </div>
-                <div class="section-bar clearfix">
-                    @include('pages/include/locphim')
-                </div>
-                <div class="halim_box">
-                    @foreach ($movie as $key => $mov)
-                        <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                            <div class="halim-item">
-                                <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
-                                    <figure><img class="lazy img-responsive"
-                                            src="{{ asset('uploads/movie/' . $mov->image) }}" title="{{ $mov->title }}">
-                                    </figure>
-                                    <span class="status">
-                                        @if ($mov->resolution == 0)
-                                            HD
-                                        @elseif($mov->resolution == 1)
-                                            SD
-                                        @elseif($mov->resolution == 2)
-                                            HDR
-                                        @elseif($mov->resolution == 3)
-                                            FullHD
-                                        @else
-                                            Trailer
-                                        @endif
-                                    </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                        {{ $mov->episode_count }}/{{ $mov->sotap }} |
-                                        @if ($mov->vietsub == 0)
-                                            VietSub
-                                            @if ($mov->season != 0)
-                                                - Season : {{ $mov->season }}
-                                            @endif
-                                        @else
-                                            Thuyết minh
-                                            @if ($mov->season != 0)
-                                                - Season : {{ $mov->season }}
-                                            @endif
-                                        @endif
-                                    </span>
-                                    <div class="icon_overlay"></div>
-                                    <div class="halim-post-title-box">
-                                        <div class="halim-post-title ">
-                                            <p class="entry-title">{{ $mov->title }}</p>
-                                            <p class="original_title">{{ $mov->name_eng }}</p>
+                <div class="row">
+                    @foreach ($cate_slug->movie->take(12) as $key => $mov)
+                        <div class="col-6 col-lg-4 mb-4">
+                            <article class="sc-kbdlSk hQPLlI post bg-sh pr"
+                                style="box-shadow: rgb(204, 204, 204) 5px 5px 10px 1px; border-radius: 10px; overflow: hidden;">
+                                <div class="postion-relative"><img class="w-100"
+                                        src="{{ asset('uploads/movie/' . $mov->image) }}" style="width: 50%; height: auto"
+                                        alt=""><img
+                                        class="sc-fFlnrN eBDayY position-absolute card-img-top icon-play cursor">
+                                </div>
+                                <div class="post__content d-flex justify-content-between"
+                                    style="padding: 16px 10px; border-top: 1px solid rgb(255, 119, 7); flex: 1 1 0%;">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                                        <div class="sc-camqpD kBgVYr text">
+                                            <h4 title="{{ $mov->title }}" class="sc-bOhtcR fppzCo">
+                                                {{ $mov->title }}
+                                            </h4>
+                                        </div>
+                                        <div><a class="halim-thumb" href="{{ route('movie', $mov->slug) }}"><button
+                                                    class="btn-sub monkey-fz-12 p-2">Xem sách</button> </a>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-                        </article>
+                                </div>
+                            </article>
+                        </div>
                     @endforeach
-                </div>
-                <div class="clearfix"></div>
-                <div class="text-center">
-                    {!! $movie->links('pagination::bootstrap-4') !!}
                 </div>
             </section>
         </main>
-        @include('pages.include.slidebar')
     </div>
 @endsection

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Quản Lý Thể loại</div>
+                    <div class="card-header">Quản Lý Chủ Đề</div>
 
                     <div class="card-body">
                         @if (session('status'))

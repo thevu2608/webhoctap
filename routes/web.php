@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\LoginGoogleControler;
 use App\Http\Controllers\movieController;
 
 /*
@@ -70,3 +71,6 @@ Route::get('/thuocphim-choose', [MovieController::class, 'thuocphim_choose'])->n
 Route::get('/resolution-choose', [MovieController::class, 'resolution_choose'])->name('resolution-choose');
 Route::post('/update-image-movie-ajax', [MovieController::class, 'update_image_movie_ajax'])->name('update-image-movie-ajax');
 
+//authentication
+Route::get('auth/google', [LoginGoogleControler::class, 'redirectToGoogle'])->name('login-by-gg');
+Route::get('auth/google/callback', [LoginGoogleControler::class, 'handleGoogleCallback']);

@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        Admin web phim
+        Admin web Learn Smart
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -125,82 +125,76 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </button>
                         <h1>
                             <a class="navbar-brand" href="{{ url('/home') }}"><span class="fa fa-area-chart"></span>
-                                Glance<span class="dashboard_text">Design dashboard</span></a>
+                                Quản lý<span class="dashboard_text">Lớp học</span></a>
                         </h1>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="sidebar-menu">
                             <li class="header">Quản lý Admin</li>
                             <li class="treeview">
-                                <a href="{{ url('/home') }}">
-                                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-file"></i>
-                                    <span>Danh Mục Phim</span>
+                                    <span>Bài Học</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li>
                                         <a href="{{ route('category.create') }}"><i class="fa fa-angle-right"></i>Thêm
-                                            danh mục</a>
+                                            Bài Học</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('category.index') }}"><i class="fa fa-angle-right"></i>Liệt
-                                            kê danh mục</a>
+                                            kê Bài Học </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-bars"></i>
-                                    <span>Thể loại phim</span>
+                                    <span>Chủ đề lớp</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li>
-                                        <a href="{{ route('genre.create') }}"><i class="fa fa-angle-right"></i>Thêm Thể
-                                            Loại</a>
+                                        <a href="{{ route('genre.create') }}"><i class="fa fa-angle-right"></i>Thêm chủ đề</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('genre.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
-                                            Thể Loại</a>
+                                            chủ đề</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-globe"></i>
-                                    <span>Quốc gia phim</span>
+                                    <span>Tài liệu nâng cao</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li>
                                         <a href="{{ route('country.create') }}"><i class="fa fa-angle-right"></i>Thêm
-                                            Quốc Gia</a>
+                                            tài liệu nâng cao</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('country.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
-                                            Phim Thuộc Quốc Gia</a>
+                                            tài liệu nâng cao</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-film"></i>
-                                    <span>Phim</span>
+                                    <span>Chuyên đề môn học</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li>
                                         <a href="{{ route('movie.create') }}"><i class="fa fa-angle-right"></i>Thêm
-                                            Phim</a>
+                                            Chuyên đề môn học</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('movie.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
-                                            Danh Sách Phim</a>
+                                            Danh Sách Chuyên đề môn học</a>
                                     </li>
                                 </ul>
                             </li>
@@ -269,7 +263,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <i class="pull-left fa fa-file icon-rounded"></i>
                             <div class="stats">
                                 <h5><strong>{{$category_sum}}</strong></h5>
-                                <span>Danh mục phim</span>
+                                <span>Bài học</span>
                             </div>
                         </div>
                     </div>
@@ -278,7 +272,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
                             <div class="stats">
                                 <h5><strong>{{$genre_sum}}</strong></h5>
-                                <span>Thể loại phim</span>
+                                <span>Chủ đề lớp</span>
                             </div>
                         </div>
                     </div>
@@ -287,7 +281,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <i class="pull-left fa fa-globe user2 icon-rounded"></i>
                             <div class="stats">
                                 <h5><strong>{{$country_sum}}</strong></h5>
-                                <span>Quốc gia phim</span>
+                                <span>Tài liệu nâng cao</span>
                             </div>
                         </div>
                     </div>
@@ -296,7 +290,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <i class="pull-left fa fa-film dollar1 icon-rounded"></i>
                             <div class="stats">
                                 <h5><strong>{{$movie_sum}}</strong></h5>
-                                <span>Phim</span>
+                                <span>Chuyên đề môn học</span>
                             </div>
                         </div>
                     </div>
@@ -321,8 +315,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <!--footer-->
         <div class="footer">
             <p>
-                &copy; 2023 Web phim hay 24h | Design by
-                <a href="https://www.facebook.com/subin2608" target="_blank">Nguyen The Vu</a>
+                &copy; 2024 Web học tập
             </p>
         </div>
         <!--//footer-->

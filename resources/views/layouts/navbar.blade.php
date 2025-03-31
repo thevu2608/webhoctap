@@ -11,25 +11,22 @@
                 <a class="nav-link" href="{{ route('info.create') }}">Thông tin website</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('category.create') }}">Danh mục phim</a>
+                <a class="nav-link" href="{{ route('category.create') }}">Bài học</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('genre.create') }}">Thể loại <span
+                <a class="nav-link" href="{{ route('genre.create') }}">Chủ đề lớp<span
                         class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('country.create') }}">Quốc gia</a>
+                <a class="nav-link" href="{{ route('country.create') }}">Tài liệu nâng cao</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('movie.index') }}">Phim</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('episode.create') }}">Thêm link phim</a>
+                <a class="nav-link" href="{{ route('movie.index') }}">Chuyên đề môn học</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm phim</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm chuyên đề</button>
         </form>
     </div>
 </nav>

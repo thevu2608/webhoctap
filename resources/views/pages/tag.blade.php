@@ -21,7 +21,6 @@
                     <h1 class="section-title"><span>Tags : {{ $tag }}</span></h1>
                 </div>
                 <div class="section-bar clearfix">
-                    @include('pages/include/locphim')
                 </div>
                 <div class="halim_box">
                     @foreach ($movie as $key => $mov)
@@ -74,6 +73,5 @@
                 </div>
             </section>
         </main>
-        @include('pages.include.slidebar')
     </div>
 @endsection

@@ -5,8 +5,6 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Lọc phim</a> »
-                                    <span class="breadcrumb_last" aria-current="page">2023</span></span></span></div>
                     </div>
                 </div>
             </div>

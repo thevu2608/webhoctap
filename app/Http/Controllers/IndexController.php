@@ -9,8 +9,6 @@ use App\Models\Genre;
 use App\Models\Info;
 use App\Models\Movie;
 use App\Models\Movie_Genre;
-use App\Models\Rating;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -35,13 +33,12 @@ class IndexController extends Controller
         $info = Info::find(1);
         $meta_title = $info->title;
         $meta_description = $info->description;
-        $phim_hot = Movie::withCount('episode')->where('phim_hot', 1)->where('status', 1)->orderBy('date_update', 'DESC')->get();
 
         $category_home = Category::with(['movie' => function ($q) {
             $q->withCount('episode')->where('status', 1);
         }])->orderBy('id', 'DESC')->where('status', 1)->get();
 
-        return view('pages/home', compact('category_home', 'phim_hot', 'meta_title', 'meta_description'));
+        return view('pages/home', compact('category_home', 'meta_title', 'meta_description'));
     }
     public function category($slug)
     {
@@ -59,15 +56,7 @@ class IndexController extends Controller
         $movie = Movie::withCount('episode')->where('tags', 'LIKE', '%' . $tag . '%')->orderBy('date_update', 'DESC')->paginate(12);
         return view('pages/tag', compact('tag', 'movie', 'meta_title', 'meta_description'));
     }
-    public function year($year)
-    {
-        $meta_title = 'Năm phim: ' . $year;
-        $meta_description = 'Tìm phim năm: ' . $year;
-        $year = $year;
-        $movie = Movie::withCount('episode')->where('status', 1)->where('year', $year)->orderBy('date_update', 'DESC')->paginate(12);
-        return view('pages/year', compact('year', 'movie', 'meta_description', 'meta_title'));
-    }
-    public function genre($slug)
+       public function genre($slug)
     {
         $genre_slug = Genre::where('slug', $slug)->first();
         $meta_title = $genre_slug->title;
@@ -102,42 +91,15 @@ class IndexController extends Controller
         $episode_list = Episode::with('movie')->where('movie_id', $movie->id)->get();
         $episode_count = $episode_list->count();
 
-        $rating = Rating::where('movie_id', $movie->id)->avg('rating');
-        $rating = round($rating);
-        $count_total = Rating::where('movie_id', $movie->id)->count();
-        $count_view = $movie->count_view;
-        $count_view = $count_view + 1;
-        $movie->count_view = $count_view;
-        $movie->save();
-
         return view('pages/movie', compact(
             'movie',
             'movie_related',
             'episode',
             'episode_first',
             'episode_count',
-            'rating',
-            'count_total',
             'meta_title',
             'meta_description'
         ));
-    }
-    public function add_rating(Request $request)
-    {
-        $data = $request->all();
-        $ip_address = $request->ip();
-
-        $rating_count = Rating::where('movie_id', $data['movie_id'])->where('ip_address', $ip_address)->count();
-        if ($rating_count > 0) {
-            echo 'exist';
-        } else {
-            $rating = new Rating();
-            $rating->movie_id = $data['movie_id'];
-            $rating->rating = $data['index'];
-            $rating->ip_address = $ip_address;
-            $rating->save();
-            echo 'done';
-        }
     }
     public function watch($slug, $tap)
     {
@@ -146,19 +108,9 @@ class IndexController extends Controller
         $meta_description = $movie->description;
         $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)
             ->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
-        //Lấy tập 1
-        if (isset($tap)) {
-            $tapphim = $tap;
-            $tapphim = substr($tap, 4, 20);
-            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
-        } else {
-            $tapphim = 1;
-            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
-        }
         return view('pages/watch', compact(
             'movie',
             'episode',
-            'tapphim',
             'movie_related',
             'meta_title',
             'meta_description'

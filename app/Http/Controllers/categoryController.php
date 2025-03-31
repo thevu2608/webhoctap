@@ -16,7 +16,7 @@ class categoryController extends Controller
      */
     public function index()
     {
-        $list = Category::orderBy('position', 'ASC')->where('status', 1)->get();
+        $list = Category::orderBy('id', 'ASC')->where('status', 1)->get();
         return view('admincp.category.index', compact('list'));
     }
 
@@ -45,7 +45,7 @@ class categoryController extends Controller
         $category->description = $data['description'];
         $category->status = $data['status'];
         $category->save();
-        toastr()->success('Create','Thêm danh mục thành công!');
+        toastr()->success('Create','Thêm bài học thành công!');
         return redirect()->route('category.index');
     }
 
@@ -69,7 +69,6 @@ class categoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        $list = Category::orderBy('position', 'ASC')->where('status', 1)->get();
         return view('admincp.category.form', compact('list', 'category'));
     }
 
@@ -89,7 +88,7 @@ class categoryController extends Controller
         $category->description = $data['description'];
         $category->status = $data['status'];
         $category->save();
-        toastr()->success('Update','Cập nhật danh mục thành công!');
+        toastr()->success('Update','Cập nhật bài học thành công!');
         return redirect()->route('category.index');
     }
 
@@ -102,7 +101,7 @@ class categoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        toastr()->warning('Delete','Xóa danh mục thành công!');
+        toastr()->warning('Delete','Xóa bài học thành công!');
         return redirect()->back();
     }
     public function resorting(Request $request){

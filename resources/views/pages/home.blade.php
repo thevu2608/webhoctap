@@ -6,176 +6,148 @@
                 <div class="ajax"></div>
             </div>
         </div>
-        {{-- <div class="col-xs-12 carausel-sliderWidget">
-                <section id="halim-advanced-widget-4">
-                    <div class="section-heading">
-                        <a href="danhmuc.php" title="Phim Chiếu Rạp">
-                            <span class="h-text">Phim Chiếu Rạp</span>
-                        </a>
-                        <ul class="heading-nav pull-right hidden-xs">
-                            <li class="section-btn halim_ajax_get_post" data-catid="4" data-showpost="12" data-widgetid="halim-advanced-widget-4" data-layout="6col"><span data-text="Chiếu Rạp"></span></li>
-                        </ul>
-                    </div>
-                    <div id="halim-advanced-widget-4-ajax-box" class="halim_box">
-                        <article class="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
-                            <div class="halim-item">
-                                <a class="halim-thumb" href="{{route('movie')}}" title="GÓA PHỤ ĐEN">
-                                    <figure><img class="lazy img-responsive" src="https://lumiere-a.akamaihd.net/v1/images/p_blackwidow_disneyplus_21043-1_63f71aa0.jpeg" alt="GÓA PHỤ ĐEN" title="GÓA PHỤ ĐEN"></figure>
-                                    <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                    <div class="icon_overlay"></div>
-                                    <div class="halim-post-title-box">
-                                        <div class="halim-post-title ">
-                                            <p class="entry-title">GÓA PHỤ ĐEN</p>
-                                            <p class="original_title">Black Widow</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-                <div class="clearfix"></div>
-            </div> --}}
-        <div id="halim_related_movies-2xx" class="wrap-slider">
-            <div class="section-bar clearfix">
-                <h3 class="section-title"><span>PHIM HOT</span></h3>
-            </div>
-            <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
-                @foreach ($phim_hot as $key => $hot)
-                    <article class="thumb grid-item post-38498">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie', $hot->slug) }}" title="{{ $hot->title }}">
-                                <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
-                                        alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
-                                <span class="status">
-                                    @if ($hot->resolution == 0)
-                                        HD
-                                    @elseif($hot->resolution == 1)
-                                        SD
-                                    @elseif($hot->resolution == 2)
-                                        HDR
-                                    @elseif($hot->resolution == 3)
-                                        FullHD
-                                    @else
-                                        Trailer
-                                    @endif
-                                </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                    {{ $hot->episode_count }}/{{ $hot->sotap }} |
-                                    @if ($hot->vietsub == 0)
-                                        VietSub
-                                        @if ($hot->season != 0)
-                                            - Season : {{ $hot->season }}
-                                        @endif
-                                    @else
-                                        Thuyết minh
-                                        @if ($hot->season != 0)
-                                            - Season : {{ $hot->season }}
-                                        @endif
-                                    @endif
-                                </span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">{{ $hot->title }}</p>
-                                        <p class="original_title">{{ $hot->name_eng }}</p>
+        <main>
+            <div class="sc-khYOSX eQVViE hoc10-slider pr p-0">
+                <div class="slick-slider slider-home pr slick-initialized">
+                    <div class="slick-list">
+                        <div class="slick-track" style="width: 1296px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+                            <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1"
+                                aria-hidden="false" style="outline: none; width: 1296px;">
+                            {{--ảnh bìa--}}
+                                <div>
+                                    <div class="sc-einZSS bWkxWx item flex" tabindex="-1"
+                                        style="width: 95%; display: inline-block;"><img class="fit"
+                                            src="{{ asset('uploads/book/BÌA3860.png') }}"
+                                            alt="banner-canh-dieu">
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                    </article>
-                @endforeach
-            </div>
-            <script>
-                $(document).ready(function($) {
-                    var owl = $('#halim_related_movies-2');
-                    owl.owlCarousel({
-                        loop: true,
-                        margin: 4,
-                        autoplay: true,
-                        autoplayTimeout: 2000,
-                        autoplayHoverPause: true,
-                        nav: true,
-                        navText: ['<i class="hl-down-open rotate-left"></i>',
-                            '<i class="hl-down-open rotate-right"></i>'
-                        ],
-                        responsiveClass: true,
-                        responsive: {
-                            0: {
-                                items: 2
-                            },
-                            480: {
-                                items: 3
-                            },
-                            600: {
-                                items: 4
-                            },
-                            1000: {
-                                items: 5
-                            }
-                        }
-                    })
-                });
-            </script>
-        </div>
-        <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
-            @foreach ($category_home as $key => $cate_home)
-                <section id="halim-advanced-widget-2">
-                    <div class="section-heading">
-                        <a href="{{ route('category', $cate_home->slug) }}" title="{{ $cate_home->title }}">
-                            <span class="h-text">{{ $cate_home->title }}</span>
-                        </a>
                     </div>
-                    <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
-                        @foreach ($cate_home->movie->take(12) as $key => $mov)
-                            <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                                <div class="halim-item">
-                                    <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
-                                        <figure><img class="lazy img-responsive"
-                                                src="{{ asset('uploads/movie/' . $mov->image) }}"
-                                                title="{{ $mov->title }}"></figure>
-                                        <span class="status">
-                                            @if ($mov->resolution == 0)
-                                                HD
-                                            @elseif($mov->resolution == 1)
-                                                SD
-                                            @elseif($mov->resolution == 2)
-                                                HDR
-                                            @elseif($mov->resolution == 3)
-                                                FullHD
-                                            @else
-                                                Trailer
-                                            @endif
-                                        </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-
-                                            {{ $mov->episode_count }}/{{ $mov->sotap }} |
-                                            @if ($mov->vietsub == 0)
-                                                VietSub
-                                                @if ($mov->season != 0)
-                                                    - Season : {{ $mov->season }}
-                                                @endif
-                                            @else
-                                                Thuyết minh
-                                                @if ($mov->season != 0)
-                                                    - Season : {{ $mov->season }}
-                                                @endif
-                                            @endif
-                                        </span>
-                                        <div class="icon_overlay"></div>
-                                        <div class="halim-post-title-box">
-                                            <div class="halim-post-title ">
-                                                <p class="entry-title">{{ $mov->title }}</p>
-                                                <p class="original_title">{{ $mov->name_eng }}</p>
-                                            </div>
-                                        </div>
+                </div>
+            </div>
+            <div class="hoc10-lesson-library">
+                @foreach ($category_home as $key => $cate_home)
+                    <div class="container">
+                        <div class="filter filter-horizontal mt-3 mb-4 p-0">
+                            <div class="filter__item d-none d-md-block filter__checkboxlist_horizontal">
+                                <h4 class="filter__title_horizontal">Chuyên Đề Lớp</h4>
+                                <div class="filter__item__list_horizontal">
+                                    <a href="{{ route('category', $cate_home->slug) }}" title="{{ $cate_home->title }}">
+                                        <span class="sc-coYmiO ezlAks">{{ $cate_home->title }}</span>
                                     </a>
                                 </div>
-                            </article>
-                        @endforeach
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4">
+                                <div class="filter">
+                                    <div class="d-block d-md-none mt-0 pt-0 css-2b097c-container"><span aria-live="polite"
+                                            aria-atomic="false" aria-relevant="additions text"
+                                            class="css-7pg0cj-a11yText"></span>
+                                        <div class=" css-yk16xz-control">
+                                            <div class=" css-1hwfws3">
+                                                <div class="css-1g6gooi">
+                                                    <div class="" style="display: inline-block;"><input
+                                                            autocapitalize="none" autocomplete="off" autocorrect="off"
+                                                            id="react-select-8-input" spellcheck="false" tabindex="0"
+                                                            type="text" aria-autocomplete="list" value=""
+                                                            style="box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
+                                                        <div
+                                                            style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 16px; font-family: SVN-GilroyRegular, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" css-1wy0on6"><span class=" css-1okebmr-indicatorSeparator"></span>
+                                                <div class=" css-tlfecz-indicatorContainer" aria-hidden="true"><svg
+                                                        height="20" width="20" viewBox="0 0 20 20" aria-hidden="true"
+                                                        focusable="false" class="css-8mmkcg">
+                                                        <path
+                                                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z">
+                                                        </path>
+                                                    </svg></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="filter__item d-none d-md-block">
+                                        <h4 class="">{{ $cate_home->title }}</h4>
+                                        @foreach ($cate_home->movie->take(12) as $key => $mov)
+                                            <div class="filter__item__list"><label class="sc-tNXst gWYQCz flex-lc pr"><input
+                                                        id="" type="checkbox" name="class" value="32"
+                                                        checked=""><span class="checked"></span>
+                                                    <p>{{ $mov->genre->title }}</p>
+                                                </label></div>
+                                        @endforeach
+                                    </div>
+                                    <div class="d-block d-md-none mt-2 pt-0 css-2b097c-container"><span aria-live="polite"
+                                            aria-atomic="false" aria-relevant="additions text"
+                                            class="css-7pg0cj-a11yText"></span>
+                                        <div class=" css-yk16xz-control">
+                                            <div class=" css-1hwfws3">
+                                                <div class=" css-1uccc91-singleValue">Tiếng Việt</div>
+                                                <div class="css-1g6gooi">
+                                                    <div class="" style="display: inline-block;"><input
+                                                            autocapitalize="none" autocomplete="off" autocorrect="off"
+                                                            id="react-select-9-input" spellcheck="false" tabindex="0"
+                                                            type="text" aria-autocomplete="list" value=""
+                                                            style="box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;">
+                                                        <div
+                                                            style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 16px; font-family: SVN-GilroyRegular, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" css-1wy0on6"><span
+                                                    class=" css-1okebmr-indicatorSeparator"></span>
+                                                <div class=" css-tlfecz-indicatorContainer" aria-hidden="true"><svg
+                                                        height="20" width="20" viewBox="0 0 20 20"
+                                                        aria-hidden="true" focusable="false" class="css-8mmkcg">
+                                                        <path
+                                                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z">
+                                                        </path>
+                                                    </svg></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 result">
+                                <div class="row">
+                                    @foreach ($cate_home->movie->take(12) as $key => $mov)
+                                        <div class="col-6 col-lg-4 mb-4">
+                                            <article class="sc-kbdlSk hQPLlI post bg-sh pr"
+                                                style="box-shadow: rgb(204, 204, 204) 5px 5px 10px 1px; border-radius: 10px; overflow: hidden;">
+                                                <div class="postion-relative"><img class="w-100"
+                                                        src="{{ asset('uploads/movie/' . $mov->image) }}"
+                                                        style="width: 50%; height: auto" alt=""><img
+                                                        class="sc-fFlnrN eBDayY position-absolute card-img-top icon-play cursor">
+                                                </div>
+                                                <div class="post__content d-flex justify-content-between"
+                                                    style="padding: 16px 10px; border-top: 1px solid rgb(255, 119, 7); flex: 1 1 0%;">
+                                                    <div
+                                                        class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                                                        <div class="sc-camqpD kBgVYr text">
+                                                            <h4 title="{{ $mov->title }}" class="sc-bOhtcR fppzCo">
+                                                                {{ $mov->title }}
+                                                            </h4>
+                                                        </div>
+                                                        <div><a class="halim-thumb"
+                                                                href="{{ route('movie', $mov->slug) }}"><button
+                                                                    class="btn-sub monkey-fz-12 p-2">Xem sách</button> </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </section>
-                <div class="clearfix"></div>
+            </div>
             @endforeach
         </main>
-        @include('pages.include.slidebar')
     </div>
 @endsection

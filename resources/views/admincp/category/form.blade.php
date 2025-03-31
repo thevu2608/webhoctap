@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Quản Lý Danh Mục</div>
+                    <div class="card-header">Quản Lý Bài Học</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -70,7 +70,7 @@
                         {!! Form::close() !!}
                     </div>
                 </div>
-             
+
             </div>
         </div>
     </div>
